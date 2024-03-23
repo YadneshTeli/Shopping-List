@@ -9,36 +9,42 @@ const app = initializeApp(appSettings)
 const database = getDatabase(app)
 const shoppingListInDB = ref(database, "shoppingList")
 
-const inputField = document.getElementById("input-field")
-const addButton = document.getElementById("add-button")
-const shoppingList = document.getElementById("shopping-list")
+const inputFieldEl = document.getElementById("input-field")
+const addButtonEl = document.getElementById("add-button")
+const shoppingListEl = document.getElementById("shopping-list")
 
-addButton.addEventListener("click", function() {
-    let inputValue = inputField.value
+addButtonEl.addEventListener("click", function() {
+    let inputValue = inputFieldEl.value
     
     push(shoppingListInDB, inputValue)
     
-    clearInput()
+    clearInputFieldEl()
 })
 
-onValue(shoppingListInDB, function(snapshot) {    
+onValue(shoppingListInDB, function(snapshot) {
     if (snapshot.exists()) {
         let itemsArray = Object.entries(snapshot.val())
     
-        shoppingList.innerHTML = ""
+        clearShoppingListEl()
         
         for (let i = 0; i < itemsArray.length; i++) {
             let currentItem = itemsArray[i]
+            let currentItemID = currentItem[0]
+            let currentItemValue = currentItem[1]
             
             appendItemToShoppingListEl(currentItem)
-        } 
+        }    
     } else {
-        shoppingList.innerHTML = "No items in list... yet"
+        shoppingListEl.innerHTML = "No items here... yet"
     }
 })
 
-function clearInput() {
-    inputField.value = ""
+function clearShoppingListEl() {
+    shoppingListEl.innerHTML = ""
+}
+
+function clearInputFieldEl() {
+    inputFieldEl.value = ""
 }
 
 function appendItemToShoppingListEl(item) {
@@ -55,5 +61,5 @@ function appendItemToShoppingListEl(item) {
         remove(exactLocationOfItemInDB)
     })
     
-    shoppingList.append(newEl)
+    shoppingListEl.append(newEl)
 }
