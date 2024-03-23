@@ -1,11 +1,20 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"
 import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js"
 
+const firebaseConfig = {
+    apiKey: "AIzaSyC5rh_BMgu-ThHgDs9EeowmDSeKwHGs_Jw",
+    authDomain: "shoptodolist-57a6a.firebaseapp.com",
+    projectId: "shoptodolist-57a6a",
+    storageBucket: "shoptodolist-57a6a.appspot.com",
+    messagingSenderId: "659738945875",
+    appId: "1:659738945875:web:84388df3b363fa7c5299a6"
+};
+
 const appSettings = {
-    databaseURL:"https://shopping-list-aabe7-default-rtdb.asia-southeast1.firebasedatabase.app"
+    databaseURL:"https://shoptodolist-57a6a-default-rtdb.firebaseio.com"
 }
 
-const app = initializeApp(appSettings)
+const app = initializeApp(firebaseConfig,appSettings)
 const database = getDatabase(app)
 const shoppingListInDB = ref(database, "shoppingList")
 
