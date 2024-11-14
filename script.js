@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"
-import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js"
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js"
 
 const firebaseConfig = {
     apiKey: "AIzaSyC5rh_BMgu-ThHgDs9EeowmDSeKwHGs_Jw",
@@ -11,7 +11,7 @@ const firebaseConfig = {
 };
 
 const appSettings = {
-    databaseURL:"https://shoptodolist-57a6a-default-rtdb.firebaseio.com"
+    databaseURL:"https://shoptodolist-57a6a-default-rtdb.firebaseio.com/"
 }
 
 const app = initializeApp(firebaseConfig,appSettings)
