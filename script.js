@@ -1,16 +1,24 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"
 import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js"
+//import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js"
 
 const firebaseConfig = {
-    //enter your firebase config
+    apiKey: "AIzaSyC5rh_BMgu-ThHgDs9EeowmDSeKwHGs_Jw",
+    authDomain: "shoptodolist-57a6a.firebaseapp.com",
+    projectId: "shoptodolist-57a6a",
+    storageBucket: "shoptodolist-57a6a.appspot.com",
+    messagingSenderId: "659738945875",
+    appId: "1:659738945875:web:84388df3b363fa7c5299a6",
+    //measurementId: "G-615S7KN4R6"
 };
 
 const appSettings = {
-    //your database url
+    databaseURL:"https://shoptodolist-57a6a-default-rtdb.firebaseio.com/"
 }
 
 const app = initializeApp(firebaseConfig,appSettings)
 const database = getDatabase(app)
+//const analytics=getAnalytics(app);
 const shoppingListInDB = ref(database, "shoppingList")
 
 const inputFieldEl = document.getElementById("input-field")
@@ -18,12 +26,20 @@ const addButtonEl = document.getElementById("add-button")
 const shoppingListEl = document.getElementById("shopping-list")
 
 addButtonEl.addEventListener("click", function() {
-    let inputValue = inputFieldEl.value
-    
-    push(shoppingListInDB, inputValue)
-    
-    clearInputFieldEl()
-})
+    let inputValue = inputFieldEl.value.trim();
+    if (inputValue === "") {
+        alert("Please enter a valid item.");
+        return;
+    }
+    try {
+        push(shoppingListInDB, inputValue);
+        clearInputFieldEl();
+    } catch (error) {
+        console.error("Error adding item:", error);
+        alert("Failed to add item. Please try again later.");
+    }
+});
+
 
 onValue(shoppingListInDB, function(snapshot) {
     if (snapshot.exists()) {
